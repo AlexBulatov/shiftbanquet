@@ -1,31 +1,30 @@
 package ru.cft.shiftbanquet.entity;
 
 import lombok.*;
+import ru.cft.shiftbanquet.entity.entityType.NotificationType;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
-public class User {
+@AllArgsConstructor
+public class Notification {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NonNull
-    private String username;
-    @NonNull
-    private String login;
-    @NonNull
-    private String password;
-    @NonNull
-    private String email;
+    private Long user_to;
 
-    private String phone;
-    private String avtPath;
+    @NonNull
+    private Long user_from;
+
+    @NonNull
+    private NotificationType type;
 }
