@@ -16,27 +16,24 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User author;
-
-    @NonNull
-    private EventType type;
     @NonNull
     private String title;
     @NonNull
     private String about;
     @NonNull
-    private String tags;
-
+    private Long longitude;
     @NonNull
-    private String place;
+    private Long latitude;
     @NonNull
     private String status;
     @NonNull
     private Date date;
 
+    //TODO expanse @Formula
 }
