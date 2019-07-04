@@ -9,5 +9,4 @@ public class ShiftbanquetApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ShiftbanquetApplication.class, args);
 	}
-
 }
