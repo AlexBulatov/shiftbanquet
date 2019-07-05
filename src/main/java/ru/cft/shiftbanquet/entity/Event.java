@@ -4,7 +4,9 @@ package ru.cft.shiftbanquet.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.util.List;
+
 
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class Event {
     private Long id;
 
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User author;
     @NonNull
@@ -35,5 +37,10 @@ public class Event {
     @NonNull
     private Date date;
 
-    //TODO expanse @Formula
+
+    @OneToMany(mappedBy = "event_id")
+    private List<Guests> members;
+
+    @OneToMany(mappedBy = "event_id")
+    private List<Expense> expenses;
 }

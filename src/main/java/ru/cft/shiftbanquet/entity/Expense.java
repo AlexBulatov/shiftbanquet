@@ -7,10 +7,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "expanses")
+@Table(name = "expenses")
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Expanse {
+public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,12 +3,11 @@ package ru.cft.shiftbanquet.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shiftbanquet.entity.Event;
+import ru.cft.shiftbanquet.repos.EventRepo;
 import ru.cft.shiftbanquet.repos.UserRepo;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 @RestController
 public class EventController {
@@ -16,7 +15,10 @@ public class EventController {
     @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/api/events/{id}")
+    @Autowired
+    private EventRepo eventRepo;
+
+    @GetMapping("/events/{id}")
     String getEvent(@PathVariable(value = "id") int id) {
         ArrayList<String> arr = new ArrayList<String>();
         arr.add("1");
@@ -25,22 +27,22 @@ public class EventController {
         return arr.get(id);
     }
 
-    @GetMapping("/api/events/")
+    @GetMapping("/events/")
     Event getEvents(){
         throw new NotImplementedException();
     }
 
-    @PostMapping("/api/events/")
+    @PostMapping("/events/")
     Event addEvent(){
         throw new NotImplementedException();
     }
 
-    @PutMapping("/api/events/")
+    @PutMapping("/events/")
     Event editEvent(){
         throw new NotImplementedException();
     }
 
-    @DeleteMapping("/api/events/")
+    @DeleteMapping("/events/")
     Event deleteEvent(){
         throw new NotImplementedException();
     }

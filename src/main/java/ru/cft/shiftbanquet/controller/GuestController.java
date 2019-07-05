@@ -10,17 +10,17 @@ public class GuestController {
     public String getGuests() {
         throw new NotImplementedException();
     }
-    
+
     @PostMapping("api/events/{event_id}/guests/{guest_id}")
     public String addGuest() {
         throw new NotImplementedException();
     }
-    
+
     @PutMapping("api/events/{event_id}/guests/{guest_id}")
     public String editGuest() {
         throw new NotImplementedException();
     }
-    
+
     @DeleteMapping("api/events/{event_id}/guests/{guest_id}")
     public String deleteGuest() {
         throw new NotImplementedException();
