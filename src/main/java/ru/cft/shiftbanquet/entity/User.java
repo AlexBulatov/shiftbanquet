@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +25,7 @@ public class User {
     @JsonIgnore
     @NonNull
     private String password;
+
     @NonNull
     private String username;
     @Email
@@ -30,5 +33,10 @@ public class User {
     private String email;
 
     private String phone;
+
     private String avtPath;
+
+    /*@OneToMany(mappedBy = "author")
+    private List<Event> eventList;*/
+
 }
