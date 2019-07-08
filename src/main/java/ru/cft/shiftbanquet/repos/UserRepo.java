@@ -1,10 +1,10 @@
 package ru.cft.shiftbanquet.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.cft.shiftbanquet.entity.User;
+import ru.cft.shiftbanquet.entity.AppUser;
 
-public interface UserRepo extends JpaRepository<User, Long> {
+public interface UserRepo extends JpaRepository<AppUser, Long> {
 
-    User findUserByLogin(String login);
+    AppUser findAppUserByLogin(String login);
 }
 

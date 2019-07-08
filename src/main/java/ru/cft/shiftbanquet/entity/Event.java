@@ -1,19 +1,19 @@
 package ru.cft.shiftbanquet.entity;
 
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "events")
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Event {
 
     @Id
@@ -23,7 +23,7 @@ public class Event {
     @NonNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
-    private User author;
+    private AppUser author;
     @NonNull
     private String title;
     @NonNull

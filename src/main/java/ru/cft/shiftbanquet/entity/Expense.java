@@ -1,15 +1,15 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "expenses")
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class Expense {
 
     @Id
@@ -17,7 +17,9 @@ public class Expense {
     private Long id;
 
     @NonNull
-    private Long event_id;
+    @ManyToOne()
+    @JoinColumn(name = "event_id")
+    private Event event_id;
 
     @NonNull
     private String name;
