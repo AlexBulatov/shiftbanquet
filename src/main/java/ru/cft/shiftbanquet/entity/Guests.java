@@ -1,17 +1,17 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
 class Guests {
 
     @Id
@@ -21,7 +21,7 @@ class Guests {
     @NonNull
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private AppUser user;
 
     @NonNull
     @ManyToOne()

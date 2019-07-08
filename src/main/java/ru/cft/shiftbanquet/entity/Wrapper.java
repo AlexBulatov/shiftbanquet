@@ -1,14 +1,22 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
 
 @Getter
-@Setter
+@Data
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class Wrapper<T> {
-    @NonNull
+
     String status;
 
     T data;
+
+    @JsonCreator
+    public Wrapper(@JsonProperty("data") T data) {
+        this.data = data;
+    }
 }

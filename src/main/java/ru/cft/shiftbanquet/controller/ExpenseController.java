@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @RestController
-public class ExpanseController {
+public class ExpenseController {
 
     @PutMapping("api/events/{event_id}/expanses/{expanse_id}")
     public String editExpanse() {

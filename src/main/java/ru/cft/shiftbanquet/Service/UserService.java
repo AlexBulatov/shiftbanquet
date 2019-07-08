@@ -2,7 +2,7 @@ package ru.cft.shiftbanquet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.cft.shiftbanquet.entity.User;
+import ru.cft.shiftbanquet.entity.AppUser;
 import ru.cft.shiftbanquet.repos.UserRepo;
 
 import java.util.List;
@@ -13,17 +13,16 @@ public class UserService {
     @Autowired
     public UserRepo userRepo;
 
-
-    public User createUser(User user){
+    public AppUser createUser(AppUser user){
         userRepo.save(user);
         return user;
     }
 
-    public List<User> findAll(){
+    public List<AppUser> findAll(){
         return userRepo.findAll();
     }
 
-    public User findByLogin(String login){
-        return userRepo.findUserByLogin(login);
+    public AppUser findByLogin(String login){
+        return userRepo.findAppUserByLogin(login);
     }
 }
