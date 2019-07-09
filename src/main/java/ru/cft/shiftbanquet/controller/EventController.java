@@ -1,6 +1,8 @@
 package ru.cft.shiftbanquet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shiftbanquet.entity.AppUser;
@@ -38,7 +40,11 @@ public class EventController {
     }
 
     @PostMapping("/events/")
-    Wrapper<Event> addEvent(@RequestBody Wrapper<EventRequestPostPayload> requestWrapper, HttpServletRequest req){
+    Wrapper<Event> addEvent(@RequestBody Wrapper<EventRequestPostPayload> requestWrapper){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userLogin = auth.getName();
+
+        System.out.println(userLogin);
         AppUser user = userRepo.findAppUserByLogin(requestWrapper.getData().getLogin());
         EventRequestPostPayload data = requestWrapper.getData();
         Event event = new Event(user, data.getTitle(), data.getAbout(), data.getLongitude(), data.getLatitude(), data.getDate());
