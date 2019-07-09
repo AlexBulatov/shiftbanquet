@@ -1,17 +1,17 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class AppUser {
 
     @Id
