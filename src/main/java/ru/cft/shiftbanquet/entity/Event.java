@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 
@@ -29,14 +29,22 @@ public class Event {
     @NonNull
     private String about;
     @NonNull
-    private Long longitude;
+    private Double longitude;
     @NonNull
-    private Long latitude;
-    @NonNull
+    private Double latitude;
+
     private String status;
     @NonNull
     private Date date;
 
+    public Event(AppUser appUser, String title, String about, Double longitude, Double latitude, Date date) {
+        this.author = appUser;
+        this.title = title;
+        this.about = about;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.date = date;
+    }
 
     @OneToMany(mappedBy = "event_id")
     private List<Guests> members;
