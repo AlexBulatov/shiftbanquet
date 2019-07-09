@@ -1,14 +1,9 @@
 package ru.cft.shiftbanquet.payloads;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 public class UserSignInPayload {
     @NonNull
     private String login;
