@@ -3,26 +3,27 @@ package ru.cft.shiftbanquet.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class User {
+public class AppUser {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @NonNull
+    private String login;
+
+    @NonNull
+    private String password;
 
     @NonNull
     private String username;
-    @NonNull
-    private String login;
-    @NonNull
-    private String password;
+
     @NonNull
     private String email;
 

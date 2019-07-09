@@ -1,6 +1,8 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import ru.cft.shiftbanquet.entity.entityType.NotificationType;
 
 import javax.persistence.Entity;
@@ -8,11 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Data
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Notification {
 
     @Id
