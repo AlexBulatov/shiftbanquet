@@ -55,5 +55,4 @@ public class EventController {
     Event deleteEvent(){
         throw new NotImplementedException();
     }
-
 }
