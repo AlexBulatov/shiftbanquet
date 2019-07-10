@@ -31,17 +31,19 @@ public class EventController {
 
     @GetMapping("/events/{id}")
     @ApiOperation(value = "Добавление новой книги")
-    Wrapper<Event> getEvent(@ApiParam(value = "Идентификатор пользователя") @PathVariable(value = "id") int id) {
+    Wrapper<Event> getEvent(@ApiParam(value = "Идентификатор пользователя") @PathVariable int id) {
         return new Wrapper<>("OK", eventRepo.findEventById(id));
     }
 
     @GetMapping("/events/")
+    @ApiOperation(value = "Получить мероприятия")
     Event getEvents(){
         throw new NotImplementedException();
     }
 
+    @ApiOperation(value = "Создать мероприятия")
     @PostMapping("/events/")
-    Wrapper<Event> addEvent(@RequestBody Wrapper<EventRequestPostPayload> requestWrapper){
+    Wrapper<Event> addEvent(@ApiParam(value = "Идентификатор пользователя") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userLogin = auth.getName();
 

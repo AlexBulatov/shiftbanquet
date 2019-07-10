@@ -58,6 +58,6 @@ public class Event {
     private List<Expense> expenses;
 
     //TODO expanse @Formula
-    @Formula("select sum(e.cost) from expanses e where e.event_id = id")
+    @Formula("(select sum(e.cost) from expenses e where e.event_id = id)")
     private Double totalCost;
 }
