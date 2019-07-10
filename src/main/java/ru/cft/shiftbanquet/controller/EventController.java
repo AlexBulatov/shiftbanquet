@@ -1,5 +1,8 @@
 package ru.cft.shiftbanquet.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +17,7 @@ import ru.cft.shiftbanquet.repos.UserRepo;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @RestController
+@Api(description = "Запросы для работы с книгами")
 public class EventController {
 
     @Autowired
@@ -26,7 +30,8 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/events/{id}")
-    Wrapper<Event> getEvent(@PathVariable(value = "id") int id) {
+    @ApiOperation(value = "Добавление новой книги")
+    Wrapper<Event> getEvent(@ApiParam(value = "Идентификатор пользователя") @PathVariable(value = "id") int id) {
         return new Wrapper<>("OK", eventRepo.findEventById(id));
     }
 
