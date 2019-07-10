@@ -2,9 +2,9 @@ package ru.cft.shiftbanquet.repos;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.cft.shiftbanquet.entity.Event;
+import ru.cft.shiftbanquet.entity.Guest;
 
 @Repository
-public interface EventRepo extends JpaRepository<Event, Long> {
-    Event findEventById(long id);
+public interface GuestRepo extends JpaRepository<Guest, Long> {
+
 }

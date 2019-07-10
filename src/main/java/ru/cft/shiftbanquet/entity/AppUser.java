@@ -1,17 +1,20 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.persistence.*;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
-@RequiredArgsConstructor
 public class AppUser {
 
     @Id
@@ -28,5 +31,10 @@ public class AppUser {
     private String email;
 
     private String phone;
+
     private String avtPath;
+
+    /*@OneToMany(mappedBy = "author")
+    private List<Event> eventList;*/
+
 }

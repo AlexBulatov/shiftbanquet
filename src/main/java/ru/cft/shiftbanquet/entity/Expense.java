@@ -16,6 +16,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @NonNull
     @ManyToOne()
     @JoinColumn(name = "event_id")
