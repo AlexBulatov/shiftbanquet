@@ -23,7 +23,7 @@ public class Event {
 
     @NonNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "author")
     private AppUser author;
 
     @NonNull
