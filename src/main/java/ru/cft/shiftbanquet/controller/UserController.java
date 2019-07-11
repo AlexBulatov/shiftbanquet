@@ -15,15 +15,6 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/user/{login}")
-    public Wrapper<AppUser> getUser (@PathVariable(value="login") String login) {
-        AppUser user = userService.findByLogin(login);
-        if(user == null){
-            return  new Wrapper<>("USER NOT FOUND", null);
-        } else
-        return  new Wrapper<>("OK", user);
-    }
-
     @PostMapping("/user/signup")
     public Wrapper<AppUser> postSignUp(@RequestBody Wrapper<AppUser> wrapper) {
         if(wrapper.getData() != null){
@@ -38,4 +29,14 @@ public class UserController {
             return new Wrapper<>("DATA IS NULL", null);
         }
     }
+
+    @GetMapping("/user/{login}")
+    public Wrapper<AppUser> getUser (@PathVariable(value="login") String login) {
+        AppUser user = userService.findByLogin(login);
+        if(user == null){
+            return  new Wrapper<>("USER NOT FOUND", null);
+        } else
+            return  new Wrapper<>("OK", user);
+    }
+
 }
