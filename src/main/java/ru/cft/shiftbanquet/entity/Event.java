@@ -1,9 +1,9 @@
 package ru.cft.shiftbanquet.entity;
 
-import org.hibernate.annotations.Formula;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import org.hibernate.annotations.Formula;
 import ru.cft.shiftbanquet.entity.entityStatus.EventStatus;
 
 import javax.persistence.*;
@@ -60,4 +60,13 @@ public class Event {
     //TODO expanse @Formula
     @Formula("(select sum(e.cost) from expenses e where e.event_id = id)")
     private Double totalCost;
+
+    public Event setEvent(Event event) {
+        this.title = event.title;
+        this.about = event.about;
+        this.longitude = event.longitude;
+        this.latitude = event.latitude;
+        this.date = event.date;
+        return this;
+    }
 }
