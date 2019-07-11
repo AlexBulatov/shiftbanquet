@@ -2,16 +2,13 @@ package ru.cft.shiftbanquet.entity;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
 
 /*@Getter
 @Data
 @AllArgsConstructor*/
 public class Wrapper<T> {
 
-    String status;
+    String req;
 
     T data;
 
@@ -20,17 +17,17 @@ public class Wrapper<T> {
         this.data = data;
     }
 
-    public Wrapper(String status, T data) {
-        this.status = status;
+    public Wrapper(String req, T data) {
+        this.req = req;
         this.data = data;
     }
 
-    public String getStatus() {
-        return status;
+    public String getReq() {
+        return req;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setReq(String req) {
+        this.req = req;
     }
 
     public T getData() {

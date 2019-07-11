@@ -6,9 +6,8 @@ import lombok.NonNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.persistence.*;
 import java.util.List;
 
 @Data
@@ -34,7 +33,15 @@ public class AppUser {
 
     private String avtPath;
 
-    /*@OneToMany(mappedBy = "author")
-    private List<Event> eventList;*/
+    // One to Many -- ?
+
+    @OneToMany(mappedBy = "subscriber")
+    private List<FriendRelation> targets;
+
+    @OneToMany(mappedBy = "target")
+    private List<FriendRelation> subscribers;
+
+    @OneToMany(mappedBy = "author")
+    private List<Event> events;
 
 }
