@@ -1,19 +1,17 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class AppUser {
 
     @Id
@@ -35,13 +33,15 @@ public class AppUser {
 
     // One to Many -- ?
 
-    @OneToMany(mappedBy = "subscriber")
-    private List<FriendRelation> targets;
+   /* @OneToMany(fetch = FetchType.EAGER, mappedBy = "subscriber")
+    @JsonIgnore
+    private List<FriendRelation> targets;*/
 
-    @OneToMany(mappedBy = "target")
-    private List<FriendRelation> subscribers;
+    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "target")
+    @JsonIgnore
+    private List<FriendRelation> subscribers;*/
 
-    @OneToMany(mappedBy = "author")
-    private List<Event> events;
+    //@OneToMany(mappedBy = "author")
+    //private List<Event> events;
 
 }

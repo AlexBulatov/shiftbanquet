@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shiftbanquet.entity.AppUser;
@@ -51,7 +50,7 @@ public class EventController {
     Wrapper<Event> addEvent(@ApiParam(value = "Идентификатор пользователя") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        AppUser user = userRepo.findAppUserByLogin(userLogin).orElse(null);
+        AppUser user = userRepo.findAppUserByLogin(userLogin);
         EventRequestPostPayload data = requestWrapper.getData();
         if (user != null) {
             Event event = new Event(user, data.getTitle(), data.getAbout(), data.getLongitude(), data.getLatitude(), data.getDate());

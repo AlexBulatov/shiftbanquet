@@ -23,6 +23,6 @@ public class UserService {
     }
 
     public AppUser findByLogin(String login){
-        return userRepo.findAppUserByLogin(login).orElse(null);
+        return userRepo.findAppUserByLogin(login);
     }
 }

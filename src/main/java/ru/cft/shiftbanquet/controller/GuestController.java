@@ -32,7 +32,7 @@ public class GuestController {
 
     @PostMapping("/events/{event_id}/guests/")
     public Wrapper<String> addGuest(@PathVariable(value = "event_id") Long event_id, @RequestBody Map<String, String> login) {
-        AppUser user = userRepo.findAppUserByLogin(login.get("login")).orElse(null);
+        AppUser user = userRepo.findAppUserByLogin(login.get("login"));
         Event event = eventRepo.findEventById(event_id);
         Guest guest = new Guest(user, event, 0.1,0.2);
 

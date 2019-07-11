@@ -26,10 +26,10 @@ public class FriendsController {
     @PostMapping("/user/{login}")
     public void addFriend(@PathVariable(value="login") String login) {
         // тут нужно отправить уведомление пользователю
-        AppUser friend = userRepo.findAppUserByLogin(login).orElse(null);
+        AppUser friend = userRepo.findAppUserByLogin(login);
 
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
-        AppUser user = userRepo.findAppUserByLogin(userLogin).orElse(null);
+        AppUser user = userRepo.findAppUserByLogin(userLogin);
 
         if (friend != null && user != null) {
 

@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<AppUser, Long> {
 
     //AppUser findAppUserByLogin(String login);
-    Optional<AppUser> findAppUserByLogin(String login);
+    AppUser findAppUserByLogin(String login);
 
     List<AppUser> findAllByLoginIsContaining(String query);
 }

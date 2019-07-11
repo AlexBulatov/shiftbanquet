@@ -60,7 +60,6 @@ public class Event {
         this.latitude = latitude;
         this.date = date;
         this.status = EventStatus.ORGANIZING;
-        this.totalCost = 0d;
         this.members = new ArrayList<>();
         this.expenses = new ArrayList<>();
     }
