@@ -16,11 +16,6 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @GetMapping("/user/{login}")
-    public Wrapper<AppUser> getUser (@PathVariable(value="login") String login) {
-        return  new Wrapper<>("OK", userService.findByLogin(login));
-    }
-
     @PostMapping("/user/signup")
     public Wrapper<AppUser> postSignUp(@RequestBody Wrapper<AppUser> wrapper) {
         if(wrapper.getData() != null){
@@ -35,6 +30,11 @@ public class UserController {
     @PostMapping("/user/auth")
     public String postSignIn() {
         throw new NotImplementedException();
+    }
+
+    @GetMapping("/user/{login}")
+    public Wrapper<AppUser> getUser (@PathVariable(value="login") String login) {
+        return  new Wrapper<>("OK", userService.findByLogin(login));
     }
 
 }
