@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.hibernate.annotations.Formula;
 import ru.cft.shiftbanquet.entity.entityStatus.EventStatus;
+import ru.cft.shiftbanquet.payloads.EventRequestPostPayload;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -57,16 +58,15 @@ public class Event {
     @OneToMany(mappedBy = "event_id")
     private List<Expense> expenses;
 
-    //TODO expanse @Formula
     @Formula("(select sum(e.cost) from expenses e where e.event_id = id)")
     private Double totalCost;
 
-    public Event setEvent(Event event) {
-        this.title = event.title;
-        this.about = event.about;
-        this.longitude = event.longitude;
-        this.latitude = event.latitude;
-        this.date = event.date;
+    public Event setEvent(EventRequestPostPayload event) {
+        this.title = event.getTitle();
+        this.about = event.getAbout();
+        this.longitude = event.getLongitude();
+        this.latitude = event.getLatitude();
+        this.date = event.getDate();
         return this;
     }
 }

@@ -10,9 +10,11 @@ import ru.cft.shiftbanquet.entity.AppUser;
 import ru.cft.shiftbanquet.entity.Event;
 import ru.cft.shiftbanquet.entity.Wrapper;
 import ru.cft.shiftbanquet.payloads.EventRequestPostPayload;
+import ru.cft.shiftbanquet.payloads.EventResponseGetPayload;
 import ru.cft.shiftbanquet.repos.EventRepo;
 import ru.cft.shiftbanquet.repos.UserRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,23 +27,26 @@ public class EventController {
     @Autowired
     private EventRepo eventRepo;
 
-
-
     @GetMapping("/events/{id}")
-    @ApiOperation(value = "Добавление новой книги")
-    Wrapper<Event> getEvent(@ApiParam(value = "Идентификатор пользователя") @PathVariable int id) {
-        return new Wrapper<>("OK", eventRepo.findEventById(id));
+    @ApiOperation(value = "получить мероприятие по ID")
+    Wrapper<EventResponseGetPayload> getEvent(@ApiParam(value = "Идентификатор пользователя") @PathVariable int id) {
+        return new Wrapper<>("OK", new EventResponseGetPayload(eventRepo.findEventById(id)));
     }
 
     @GetMapping("/events/")
-    @ApiOperation(value = "Получить мероприятия")
-    Wrapper<List<Event>> getEvents(){
-        return new Wrapper<>("OK", eventRepo.findAll()) ;
+    @ApiOperation(value = "Получить все мероприятия")
+    Wrapper<List<EventResponseGetPayload>> getEvents() {
+        List<Event> eventList = eventRepo.findAll();
+        List<EventResponseGetPayload> responseGetPayloadsList = new ArrayList<>();
+        for (Event event : eventList) {
+            responseGetPayloadsList.add(new EventResponseGetPayload(event));
+        }
+        return new Wrapper<>("OK", responseGetPayloadsList);
     }
 
-    @ApiOperation(value = "Создать мероприятия")
+    @ApiOperation(value = "Создать мероприятие")
     @PostMapping("/events/")
-    Wrapper<Event> addEvent(@ApiParam(value = "Идентификатор пользователя") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper){
+    Wrapper<Event> addEvent(@ApiParam(value = "Идентификатор пользователя") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
 
         AppUser user = userRepo.findAppUserByLogin(userLogin);
@@ -53,25 +58,26 @@ public class EventController {
     }
 
     @PutMapping("/events/{id}")
-    public Wrapper<Event> editEvent(@PathVariable(value = "id") int id) {
+    public Wrapper<EventRequestPostPayload> editEvent(@PathVariable(value = "id") int id,
+                                                      @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
 
-        if(!event.getAuthor().getLogin().equals(userLogin)){
+        if (!event.getAuthor().getLogin().equals(userLogin)) {
             return new Wrapper<>("FAIL", null);
         } else {
-            event.setEvent(event);
+            event.setEvent(requestWrapper.getData());
             eventRepo.save(event);
             return new Wrapper<>("OK", null);
         }
     }
 
     @DeleteMapping("/events/{id}")
-    public Wrapper<Event>  deleteEvent(@PathVariable(value = "id") int id) {
+    public Wrapper<Event> deleteEvent(@PathVariable(value = "id") int id) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
 
-        if(!event.getAuthor().getLogin().equals(userLogin)){
+        if (!event.getAuthor().getLogin().equals(userLogin)) {
             return new Wrapper<>("FAIL", null);
         } else {
             eventRepo.delete(event);
