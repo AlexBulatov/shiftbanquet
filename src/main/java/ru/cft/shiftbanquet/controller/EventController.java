@@ -50,27 +50,29 @@ public class EventController {
     @ApiOperation(value = "Создать мероприятие")
     Wrapper<Event> addEvent(@ApiParam(value = "Сущность события") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
-
         AppUser user = userRepo.findAppUserByLogin(userLogin);
+
         EventRequestPostPayload data = requestWrapper.getData();
-        if (user != null) {
+
+        if (user == null) {
+            return new Wrapper<>("USER NOT FOUND(INVALID TOKEN)", null);
+        } else{
             Event event = new Event(user, data.getTitle(), data.getAbout(), data.getLongitude(), data.getLatitude(), data.getDate());
             eventRepo.save(event);
             return new Wrapper<>("OK", event);
-        } else
-            return new Wrapper<>("FAIL", null);
+        }
     }
 
 
     @PutMapping("/events/{id}")
     @ApiOperation(value = "Редактировать мероприятие")
     public Wrapper<EventRequestPostPayload> editEvent(@ApiParam(value = "Идентификатор мероприятия")@PathVariable(value = "id") int id,
-                                                      @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
+                                                      @ApiParam(value = "Сущность события")@RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
 
         if (!event.getAuthor().getLogin().equals(userLogin)) {
-            return new Wrapper<>("FAIL", null);
+            return new Wrapper<>("NO ACCESS", null);
         } else {
             event.setEvent(requestWrapper.getData());
             eventRepo.save(event);
@@ -86,11 +88,10 @@ public class EventController {
         Event event = eventRepo.findEventById(id);
 
         if (!event.getAuthor().getLogin().equals(userLogin)) {
-            return new Wrapper<>("FAIL", null);
+            return new Wrapper<>("NO ACCESS", null);
         } else {
             eventRepo.delete(event);
             return new Wrapper<>("OK", null);
         }
-
     }
 }
