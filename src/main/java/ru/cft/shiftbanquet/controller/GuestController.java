@@ -34,15 +34,15 @@ public class GuestController {
     private CheckAccessHelper accessHelper;
 
     @GetMapping("/events/{event_id}/guests/")
-    @ApiOperation(value = "Вывести список всех гостей")
-    public Wrapper<List<Guest>> getGuests(@PathVariable Long event_id) {
+    @ApiOperation(value = "Вывод списка гостей")
+    public Wrapper<List<Guest>> getGuests(@ApiParam(value = "Идентификатор мероприятия")@PathVariable Long event_id) {
         Event event = eventRepo.findEventById(event_id);
         return new Wrapper<>("OK", guestRepo.findGuestsByEventId(event));
     }
 
     @GetMapping("/events/{event_id}/guests/{guest_id}")
-    @ApiOperation(value = "Получить гостя мероприятия")
-    public Wrapper<Guest> getGuests(@PathVariable Long event_id, @PathVariable Long guest_id) {
+    @ApiOperation(value = "Вывод гостя")
+    public Wrapper<Guest> getGuests(@ApiParam(value = "Идентификатор мероприятия")@PathVariable Long event_id, @ApiParam(value = "Идентификатор гостя")@PathVariable Long guest_id) {
         Event event = eventRepo.findEventById(event_id);
         return new Wrapper<>("OK",  guestRepo.findGuestByIdAndEventId(guest_id, event));
     }

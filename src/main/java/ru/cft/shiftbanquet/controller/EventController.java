@@ -67,7 +67,7 @@ public class EventController {
     @PutMapping("/events/{id}")
     @ApiOperation(value = "Редактировать мероприятие")
     public Wrapper<EventRequestPostPayload> editEvent(@ApiParam(value = "Идентификатор мероприятия")@PathVariable(value = "id") int id,
-                                                      @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
+                                                      @ApiParam(value = "Сущность события")@RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
 
