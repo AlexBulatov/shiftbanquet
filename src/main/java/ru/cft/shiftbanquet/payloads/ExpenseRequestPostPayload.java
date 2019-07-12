@@ -10,9 +10,6 @@ import ru.cft.shiftbanquet.entity.Event;
 public class ExpenseRequestPostPayload {
 
     @NonNull
-    private Long eventId;
-
-    @NonNull
     private String name;
 
     @NonNull

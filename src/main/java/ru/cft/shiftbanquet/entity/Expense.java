@@ -29,5 +29,8 @@ public class Expense {
     @NonNull
     private Double cost;
 
-
+    public void setExpense(ExpenseRequestPostPayload newExpense){
+        this.setName(newExpense.getName());
+        this.setCost(newExpense.getCost());
+    }
 }

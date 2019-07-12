@@ -27,8 +27,12 @@ public class ExpenseController {
 
     @ApiOperation(value = "Редактировать расходы")
     @PutMapping("api/events/{event_id}/expenses/{expense_id}")
-    public Wrapper<Expense> editExpense(@PathVariable long event_id, @PathVariable long expense_id) {
-        throw new NotImplementedException();
+    public Wrapper<Expense> editExpense(@PathVariable long event_id, @PathVariable long expense_id, @RequestBody Wrapper<ExpenseRequestPostPayload> payload) {
+        Event event = eventRepo.findEventById(event_id);
+        Expense expense = expenseRepo.findExpenseByIdAndEvent(expense_id, event);
+        expense.setExpense(payload.getData());
+        expenseRepo.save(expense);
+        return new Wrapper<>("OK", null);
     }
 
     @ApiOperation(value = "Удалить расходы")
@@ -50,7 +54,7 @@ public class ExpenseController {
     @PostMapping("api/events/{event_id}/expenses")
     public Wrapper<Expense> addExpense(@PathVariable long event_id, @RequestBody Wrapper<ExpenseRequestPostPayload> payload) {
         ExpenseRequestPostPayload data = payload.getData();
-        Event event = eventRepo.findEventById(data.getEventId());
+        Event event = eventRepo.findEventById(event_id);
         Expense expense = new Expense();
         expense.setEvent(event);
         expense.setCost(data.getCost());
