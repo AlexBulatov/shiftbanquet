@@ -1,20 +1,17 @@
 package ru.cft.shiftbanquet.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class AppUser {
 
     @Id
@@ -34,7 +31,17 @@ public class AppUser {
 
     private String avtPath;
 
-    /*@OneToMany(mappedBy = "author")
-    private List<Event> eventList;*/
+    // One to Many -- ?
+
+   /* @OneToMany(fetch = FetchType.EAGER, mappedBy = "subscriber")
+    @JsonIgnore
+    private List<FriendRelation> targets;*/
+
+    /*@OneToMany(fetch = FetchType.EAGER, mappedBy = "target")
+    @JsonIgnore
+    private List<FriendRelation> subscribers;*/
+
+    //@OneToMany(mappedBy = "author")
+    //private List<Event> events;
 
 }
