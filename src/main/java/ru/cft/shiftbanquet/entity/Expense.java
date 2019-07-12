@@ -3,6 +3,7 @@ package ru.cft.shiftbanquet.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import ru.cft.shiftbanquet.payloads.ExpenseRequestPostPayload;
 
 import javax.persistence.*;
 
@@ -20,11 +21,13 @@ public class Expense {
     @NonNull
     @ManyToOne()
     @JoinColumn(name = "event_id")
-    private Event event_id;
+    private Event event;
 
     @NonNull
     private String name;
 
     @NonNull
     private Double cost;
+
+
 }

@@ -46,7 +46,7 @@ public class Event {
     @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "eventId")
     private List<Guest> members;
 
-    @OneToMany(mappedBy = "event_id")
+    @OneToMany(mappedBy = "event")
     private List<Expense> expenses;
 
     @Formula("(select sum(e.cost) from expenses e where e.event_id = id)")
