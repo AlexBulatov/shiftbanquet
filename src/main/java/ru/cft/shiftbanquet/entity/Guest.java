@@ -23,7 +23,7 @@ public class Guest {
     @NonNull
     @ManyToOne(targetEntity = Event.class)
     @JoinColumn(name = "event_id")
-    private Event event_id;
+    private Event eventId;
 
     @NonNull
     private double paid;
@@ -36,11 +36,22 @@ public class Guest {
         this.mustPay = mustPayed;
     }
 
+    public Guest(AppUser user, Event event) {
+        this.user = user;
+        this.eventId = event;
+        this.paid = 0;
+        this.mustPay = 0;
+    }
+
     public Guest(AppUser user, Event event, double payed, double mustPayed){
         this.user = user;
-        this.event_id = event;
+        this.eventId  = event;
         this.paid = payed;
         this.mustPay = mustPayed;
     }
 
+    public void setGuest(Guest newGuest) {
+        this.paid = newGuest.getPaid();
+        this.mustPay = newGuest.getMustPay();
+    }
 }

@@ -43,7 +43,7 @@ public class Event {
     @NonNull
     private Date date;
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "event_id")
+    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "eventId")
     private List<Guest> members;
 
     @OneToMany(mappedBy = "event_id")
