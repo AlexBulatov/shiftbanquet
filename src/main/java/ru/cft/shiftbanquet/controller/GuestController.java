@@ -12,7 +12,7 @@ import ru.cft.shiftbanquet.entity.Wrapper;
 import ru.cft.shiftbanquet.repos.EventRepo;
 import ru.cft.shiftbanquet.repos.GuestRepo;
 import ru.cft.shiftbanquet.repos.UserRepo;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import ru.cft.shiftbanquet.service.CheckAccessHelper;
 
 import java.util.List;
 import java.util.Map;
@@ -30,14 +30,18 @@ public class GuestController {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private CheckAccessHelper accessHelper;
+
     @GetMapping("/events/{event_id}/guests/")
+    @ApiOperation(value = "Вывести список всех гостей")
     public Wrapper<List<Guest>> getGuests(@PathVariable Long event_id) {
         Event event = eventRepo.findEventById(event_id);
         return new Wrapper<>("OK", guestRepo.findGuestsByEventId(event));
     }
 
     @GetMapping("/events/{event_id}/guests/{guest_id}")
-    @ApiOperation(value = "Вывести список всех гостей")
+    @ApiOperation(value = "Получить гостя мероприятия")
     public Wrapper<Guest> getGuests(@PathVariable Long event_id, @PathVariable Long guest_id) {
         Event event = eventRepo.findEventById(event_id);
         return new Wrapper<>("OK",  guestRepo.findGuestByIdAndEventId(guest_id, event));
@@ -47,7 +51,15 @@ public class GuestController {
     @ApiOperation(value = "Добавить гостя")
     public Wrapper<String> addGuest(@ApiParam(value = "Идентификатор мероприятия") @PathVariable(value = "event_id") Long event_id, @ApiParam(value = "Логин")@RequestBody Map<String, String> login) {
         AppUser user = userRepo.findAppUserByLogin(login.get("login"));
+        if(user == null){
+            return new Wrapper<>("USER NOT FOUND", null);
+        }
         Event event = eventRepo.findEventById(event_id);
+
+        if (accessHelper.checkAccess(event)){
+            return new Wrapper<>("NO ACCESS", null);
+        }
+
         Guest guest = new Guest(user, event, 0.1,0.2);
         guestRepo.save(guest);
         //event.getMembers().add(guest);
@@ -61,6 +73,10 @@ public class GuestController {
         Event event = eventRepo.findEventById(event_id);
         Guest oldGuest = guestRepo.findGuestByIdAndEventId(guest_id, event);
 
+        if (accessHelper.checkAccess(event)){
+            return new Wrapper<>("NO ACCESS", null);
+        }
+
         oldGuest.setGuest(newGuest.getData());
         guestRepo.save(oldGuest);
         return new Wrapper<>("OK", null);
@@ -71,6 +87,10 @@ public class GuestController {
     public Wrapper<Guest> deleteGuest(@ApiParam(value = "дентификатор мероприятия")@PathVariable Long event_id, @ApiParam(value = "Идентификатор гостя")@PathVariable Long guest_id) {
         Event event = eventRepo.findEventById(event_id);
         Guest oldGuest = guestRepo.findGuestByIdAndEventId(guest_id, event);
+
+        if (accessHelper.checkAccess(event)){
+            return new Wrapper<>("NO ACCESS", null);
+        }
 
         if (oldGuest != null) {
             guestRepo.delete(oldGuest);

@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shiftbanquet.entity.AppUser;
+import ru.cft.shiftbanquet.entity.Event;
 import ru.cft.shiftbanquet.entity.Wrapper;
+import ru.cft.shiftbanquet.payloads.AppUserResponseGetPayload;
+import ru.cft.shiftbanquet.repos.EventRepo;
 import ru.cft.shiftbanquet.service.UserService;
+
+import java.util.List;
 
 @Api(description = "Запросы для работы с пользователем")
 @RestController
@@ -16,6 +21,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventRepo eventRepo;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -37,12 +44,13 @@ public class UserController {
 
     @GetMapping("/user/{login}")
     @ApiOperation(value = "Вход в аккаунт пользователя")
-    public Wrapper<AppUser> getUser (@ApiParam(value = "Логин") @PathVariable(value="login") String login) {
+    public Wrapper<AppUserResponseGetPayload> getUser (@ApiParam(value = "Логин") @PathVariable(value="login") String login) {
         AppUser user = userService.findByLogin(login);
+        List<Event> events = eventRepo.findAllByAuthor(user);
         if(user == null){
             return  new Wrapper<>("USER NOT FOUND", null);
         } else
-            return  new Wrapper<>("OK", user);
+            return  new Wrapper<>("OK", new AppUserResponseGetPayload(user, events));
     }
 
 }
