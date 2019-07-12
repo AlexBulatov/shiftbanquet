@@ -34,7 +34,16 @@ public class ExpenseController {
     @ApiOperation(value = "Удалить расходы")
     @DeleteMapping("api/events/{event_id}/expenses/{expense_id}")
     public Wrapper<Expense> deleteExpense(@PathVariable long event_id, @PathVariable long expense_id) {
-        throw new NotImplementedException();
+        Event event = eventRepo.findEventById(event_id);
+        Expense expense = expenseRepo.findExpenseByIdAndEvent(expense_id, event);
+
+        if(expense != null) {
+            expenseRepo.delete(expense);
+            return new Wrapper<> ("OK", null);
+        }
+        else {
+            return new Wrapper<>("FAIL", null);
+        }
     }
 
     @ApiOperation(value = "Добавить расходы")

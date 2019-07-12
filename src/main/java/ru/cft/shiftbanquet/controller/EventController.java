@@ -46,7 +46,7 @@ public class EventController {
     }
 
 
-    @PostMapping("/events")
+    @PostMapping("/events/")
     @ApiOperation(value = "Создать мероприятие")
     Wrapper<Event> addEvent(@ApiParam(value = "Сущность события") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
