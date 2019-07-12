@@ -46,7 +46,7 @@ public class GuestController {
 
     @PostMapping("/events/{event_id}/guests/")
     @ApiOperation(value = "Добавить гостя")
-    public Wrapper<String> addGuest(@ApiParam(value = "Идентификатор мероприятия") @PathVariable(value = "event_id") Long event_id, @RequestBody Map<String, String> login) {
+    public Wrapper<String> addGuest(@ApiParam(value = "Идентификатор мероприятия") @PathVariable(value = "event_id") Long event_id, @ApiParam(value = "Логин")@RequestBody Map<String, String> login) {
         AppUser user = userRepo.findAppUserByLogin(login.get("login"));
         Event event = eventRepo.findEventById(event_id);
         Guest guest = new Guest(user, event, 0.1,0.2);
@@ -57,7 +57,8 @@ public class GuestController {
     }
 
     @PutMapping("/events/{event_id}/guests/{guest_id}")
-    public Wrapper<Guest> editGuest(@PathVariable Long event_id, @PathVariable Long guest_id, @RequestBody Wrapper<Guest> newGuest) {
+    @ApiOperation(value = "Редактировать список гостей")
+    public Wrapper<Guest> editGuest(@ApiParam(value = "Идентификатор мероприятия")@PathVariable Long event_id, @ApiParam(value = "Идентификатор гостя")@PathVariable Long guest_id, @RequestBody Wrapper<Guest> newGuest) {
         Event event = eventRepo.findEventById(event_id);
         Guest oldGuest = guestRepo.findGuestByIdAndEventId(guest_id, event);
 
@@ -67,7 +68,8 @@ public class GuestController {
     }
 
     @DeleteMapping("/events/{event_id}/guests/{guest_id}")
-    public Wrapper<Guest> deleteGuest(@PathVariable Long event_id, @PathVariable Long guest_id) {
+    @ApiOperation(value = "Удалить гостя из списка")
+    public Wrapper<Guest> deleteGuest(@ApiParam(value = "дентификатор мероприятия")@PathVariable Long event_id, @ApiParam(value = "Идентификатор гостя")@PathVariable Long guest_id) {
         Event event = eventRepo.findEventById(event_id);
         Guest oldGuest = guestRepo.findGuestByIdAndEventId(guest_id, event);
 
