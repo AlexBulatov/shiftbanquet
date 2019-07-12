@@ -1,5 +1,8 @@
 package ru.cft.shiftbanquet.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shiftbanquet.entity.AppUser;
@@ -13,6 +16,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Map;
 
+@Api(description = "Запросы для работы с гостями")
 @RestController
 public class GuestController {
 
@@ -26,12 +30,14 @@ public class GuestController {
     private UserRepo userRepo;
 
     @GetMapping("/events/{event_id}/guests/{guest_id}")
+    @ApiOperation(value = "Вывести список всех гостей")
     public String getGuests() {
         throw new NotImplementedException();
     }
 
     @PostMapping("/events/{event_id}/guests/")
-    public Wrapper<String> addGuest(@PathVariable(value = "event_id") Long event_id, @RequestBody Map<String, String> login) {
+    @ApiOperation(value = "Добавить гостя")
+    public Wrapper<String> addGuest(@ApiParam(value = "Идентификатор мероприятия") @PathVariable(value = "event_id") Long event_id, @RequestBody Map<String, String> login) {
         AppUser user = userRepo.findAppUserByLogin(login.get("login"));
         Event event = eventRepo.findEventById(event_id);
         Guest guest = new Guest(user, event, 0.1,0.2);

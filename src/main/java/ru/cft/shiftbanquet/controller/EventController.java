@@ -16,7 +16,7 @@ import ru.cft.shiftbanquet.repos.UserRepo;
 import java.util.List;
 
 @RestController
-@Api(description = "Запросы для работы с книгами")
+@Api(description = "Запросы для работы с мероприятиями")
 public class EventController {
 
     @Autowired
@@ -40,14 +40,15 @@ public class EventController {
 
     @GetMapping("/events/l/")
     @ApiOperation(value = "Получить мероприятия")
-    Wrapper<List<Event>> getEventsInLimit(@RequestParam("limit") int limit, @RequestParam("offset") int offset) {
+    Wrapper<List<Event>> getEventsInLimit(@ApiParam(value = "Предел")@RequestParam("limit") int limit, @ApiParam(value = "Смещение")@RequestParam("offset") int offset) {
         List<Event> eventList = eventRepo.findAll().subList(offset, offset + limit);
         return new Wrapper<>("OK", eventList);
     }
 
-    @ApiOperation(value = "Создать мероприятие")
+
     @PostMapping("/events")
-    Wrapper<Event> addEvent(@ApiParam(value = "Идентификатор пользователя") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
+    @ApiOperation(value = "Создать мероприятие")
+    Wrapper<Event> addEvent(@ApiParam(value = "Сущность события") @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
 
         AppUser user = userRepo.findAppUserByLogin(userLogin);
@@ -60,8 +61,10 @@ public class EventController {
             return new Wrapper<>("FAIL", null);
     }
 
+
     @PutMapping("/events/{id}")
-    public Wrapper<EventRequestPostPayload> editEvent(@PathVariable(value = "id") int id,
+    @ApiOperation(value = "Редактировать мероприятие")
+    public Wrapper<EventRequestPostPayload> editEvent(@ApiParam(value = "Идентификатор мероприятия")@PathVariable(value = "id") int id,
                                                       @RequestBody Wrapper<EventRequestPostPayload> requestWrapper) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
@@ -75,8 +78,10 @@ public class EventController {
         }
     }
 
+
     @DeleteMapping("/events/{id}")
-    public Wrapper<Event> deleteEvent(@PathVariable(value = "id") int id) {
+    @ApiOperation(value = "Удалить мероприятие")
+    public Wrapper<Event> deleteEvent(@ApiParam(value = "Идентификатор меропрития")@PathVariable(value = "id") int id) {
         String userLogin = SecurityContextHolder.getContext().getAuthentication().getName();
         Event event = eventRepo.findEventById(id);
 
