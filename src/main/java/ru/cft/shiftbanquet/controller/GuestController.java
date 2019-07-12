@@ -38,7 +38,7 @@ public class GuestController {
 
         event.getMembers().add(guest);
         eventRepo.saveAndFlush(event);
-        return new Wrapper<>("OK", "sosipisos");
+        return new Wrapper<>("OK", null);
     }
 
     @PutMapping("/events/{event_id}/guests/{guest_id}")

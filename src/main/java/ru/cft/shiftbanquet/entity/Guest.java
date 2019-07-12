@@ -26,21 +26,21 @@ public class Guest {
     private Event event_id;
 
     @NonNull
-    private double payed;
+    private double paid;
     @NonNull
-    private double mustPayed;
+    private double mustPay;
 
     public Guest(AppUser user, double payed, double mustPayed){
         this.user = user;
-        this.payed = payed;
-        this.mustPayed = mustPayed;
+        this.paid = payed;
+        this.mustPay = mustPayed;
     }
 
     public Guest(AppUser user, Event event, double payed, double mustPayed){
         this.user = user;
         this.event_id = event;
-        this.payed = payed;
-        this.mustPayed = mustPayed;
+        this.paid = payed;
+        this.mustPay = mustPayed;
     }
 
 }
