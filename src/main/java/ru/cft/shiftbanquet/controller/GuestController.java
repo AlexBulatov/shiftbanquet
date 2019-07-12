@@ -37,7 +37,6 @@ public class GuestController {
     }
 
     @GetMapping("/events/{event_id}/guests/{guest_id}")
-
     @ApiOperation(value = "Вывести список всех гостей")
     public Wrapper<Guest> getGuests(@PathVariable Long event_id, @PathVariable Long guest_id) {
         Event event = eventRepo.findEventById(event_id);
@@ -50,8 +49,8 @@ public class GuestController {
         AppUser user = userRepo.findAppUserByLogin(login.get("login"));
         Event event = eventRepo.findEventById(event_id);
         Guest guest = new Guest(user, event, 0.1,0.2);
-
-        event.getMembers().add(guest);
+        guestRepo.save(guest);
+        //event.getMembers().add(guest);
         eventRepo.saveAndFlush(event);
         return new Wrapper<>("OK", null);
     }

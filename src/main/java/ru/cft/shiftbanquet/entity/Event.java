@@ -43,11 +43,11 @@ public class Event {
     @NonNull
     private Date date;
 
-    @OneToMany(cascade = { CascadeType.ALL }, mappedBy = "eventId")
-    private List<Guest> members;
+    //@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "eventId", fetch = FetchType.EAGER)
+    //private List<Guest> members;
 
-    @OneToMany(mappedBy = "event")
-    private List<Expense> expenses;
+    //@OneToMany(mappedBy = "event")
+    //private List<Expense> expenses;
 
     @Formula("(select sum(e.cost) from expenses e where e.event_id = id)")
     private Double totalCost;
@@ -60,8 +60,8 @@ public class Event {
         this.latitude = latitude;
         this.date = date;
         this.status = EventStatus.ORGANIZING;
-        this.members = new ArrayList<>();
-        this.expenses = new ArrayList<>();
+        //this.members = new ArrayList<>();
+        //this.expenses = new ArrayList<>();
     }
 
     public Event setEvent(EventRequestPostPayload event) {
