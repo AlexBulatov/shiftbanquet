@@ -1,4 +1,4 @@
-package ru.cft.shiftbanquet.Service;
+package ru.cft.shiftbanquet.service;
 
 import org.springframework.stereotype.Service;
 
